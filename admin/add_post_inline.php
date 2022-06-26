@@ -48,7 +48,8 @@
          * File upload
          */
         if (empty($errors)) {
-            move_uploaded_file($post_img_tmp_name,$uploadFolder.basename($post_img_name));
+            $img_name = time()."-".basename($post_img_name);
+            move_uploaded_file($post_img_tmp_name,$uploadFolder.$img_name);
         }else{
             print_r($errors);
         }
@@ -65,7 +66,7 @@
     $post_date = date("d M,Y");
     $author = $_SESSION['user_id'];
 
-    $sql = "INSERT INTO post( title, description, category, post_date,author,post_img) VALUE('$title','$description','$category','$post_date','$author','$post_img_name');";
+    $sql = "INSERT INTO post( title, description, category, post_date,author,post_img) VALUE('$title','$description','$category','$post_date','$author','$img_name');";
     $sql.="UPDATE category SET post = post+1 WHERE category_id = '$category'";
     $result = mysqli_multi_query($conn, $sql) or die("Query Fail");
     header("Location:{$hostname}admin/");

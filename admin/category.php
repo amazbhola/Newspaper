@@ -37,6 +37,7 @@
                         $sql1 = "SELECT * FROM category ORDER BY category_id DESC LIMIT $offset, $limit ";
                         $result1 = mysqli_query($conn, $sql1) or die("Query Fail");
                         $rows =[];
+                        $serial = $offset+1;
                         while ($row = mysqli_fetch_array($result1,MYSQLI_ASSOC)) {
                             $rows[] = $row;
                         }
@@ -45,13 +46,13 @@
                         
                         ?>
                         <tr>
-                            <td class='id'><?php echo $row['category_id'] ?></td>
+                            <td class='id'><?php echo $serial ?></td>
                             <td><?php echo $row['category_name'] ?></td>
                             <td><?php echo $row['post'] ?></td>
                             <td class='edit'><a href='update-category.php?id=<?php echo $row['category_id'] ?>'><i class='fa fa-edit'></i></a></td>
                             <td class='delete'><a href='delete-category.php?id=<?php echo $row['category_id'] ?>'><i class='fa fa-trash-o'></i></a></td>
                         </tr>
-                        <?php } ?>
+                        <?php $serial++; } ?>
 
                     </tbody>
                 </table>

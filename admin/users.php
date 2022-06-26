@@ -39,19 +39,20 @@
                         $sql = "SELECT * FROM user ORDER BY user_id DESC LIMIT $offset, $limit";
                         $result = mysqli_query($conn, $sql) or die("Query Fail : ");
                         $rows=[];
+                        $serial = $offset+1;
                         while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                             $rows[] = $row;
                         }
                         foreach ($rows as $row) { ?>
                             <tr>
-                                <td class='id'><?php echo $row['user_id'] ?></td>
+                                <td class='id'><?php echo $serial ?></td>
                                 <td><?php echo $row['first_name'] ." ". $row['last_name']?></td>
                                 <td><?php echo $row['username'] ?></td>
                                 <td><?php echo $row['role'] == 0?"Normal User":"Admin" ?></td>
                                 <td class='edit'><a href='update-user.php?id=<?php echo $row['user_id']?>'><i class='fa fa-edit'></i></a></td>
                                 <td class='delete'><a href='delete-user.php?id=<?php echo $row['user_id']?>'><i class='fa fa-trash-o'></i></a></td>
                             </tr>
-                        <?php  }  ?>
+                        <?php $serial++; }  ?>
                     </tbody>
                 </table>
                 <ul class='pagination admin-pagination'>

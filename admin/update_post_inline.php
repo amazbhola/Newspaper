@@ -50,7 +50,8 @@
          * File upload
          */
         if (empty($errors)) {
-            move_uploaded_file($post_img_tmp_name,$uploadFolder.basename($post_img_name));
+            $img_name = time()."-".basename($post_img_name);
+            move_uploaded_file($post_img_tmp_name,$uploadFolder.$img_name);
         }else{
             print_r($errors);
         }
@@ -63,7 +64,7 @@
     $title = mysqli_real_escape_string($conn, $_POST['post_title']);
     $description = mysqli_real_escape_string($conn, $_POST['postdesc']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
-    $sql = "UPDATE post SET title='$title', description = '$description', category=$category, post_img ='$post_img_name' WHERE post_id = $post_id";
+    $sql = "UPDATE post SET title='$title', description = '$description', category=$category, post_img ='$img_name' WHERE post_id = $post_id";
     
     $result = mysqli_multi_query($conn, $sql) or die("Query Fail");
     header("Location:{$hostname}admin/");
