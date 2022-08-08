@@ -25,7 +25,7 @@
         /**
          * Check Exiting Folder
          */
-        if (!file_exists('uploads')) {
+        if (!is_dir('uploads')) {
             mkdir('uploads');
         }
         $uploadFolder = 'uploads/';

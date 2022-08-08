@@ -1,4 +1,16 @@
-<?php include "header.php"; ?>
+<?php include "header.php"; 
+    if ($_SESSION['role']==0) {
+        include '../config.php';
+                $id = $_GET['id'];
+                $sql2 = "SELECT author FROM post where post_id = $id";
+                $result2 = mysqli_query($conn, $sql2) or die("User role Query Fail");
+                $row2 = mysqli_fetch_assoc($result2);
+                if ($row2['author']!= $_SESSION['user_id']) {
+                   header("Location:{$hostname}admin/post.php");
+                }
+    }
+?>
+
 <div id="admin-content">
     <div class="container">
         <div class="row">
